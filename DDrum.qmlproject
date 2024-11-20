@@ -3,13 +3,12 @@
 
 import QmlProject
 
-
 Project {
     mainFile: "DDrumContent/App.qml"
     mainUiFile: "DDrumContent/Screen01.ui.qml"
     targetDirectory: "/opt/DDrum"
     enableCMakeGeneration: true
-    enablePythonGeneration: true
+    enablePythonGeneration: false
     widgetApp: true
     importPaths: [ "." ]
     mockImports: [ "Mocks" ]

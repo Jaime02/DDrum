@@ -7,7 +7,7 @@ AudioEngine::AudioEngine(QObject *parent)
     : QObject(parent)
     , m_effect(this)
 {
-    QUrl initUrl("qrc:/qt/qml/Sounds/Blow.wav");
+    QUrl initUrl(":/Sounds/Blow.wav");
     m_effect.setSource(initUrl);
 }
 

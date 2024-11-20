@@ -15,8 +15,8 @@ WaveformItem::WaveformItem(QQuickItem *parent)
     : QQuickPaintedItem(parent)
     , m_name("CPP Waveform")
     , m_color(Qt::green)
-    , m_url("qrc:/qt/qml/Sounds/Blow.wav")
-    , m_file(std::make_unique< QFile >(":/qt/qml/Sounds/Blow.wav"))
+    , m_url(":/Sounds/Blow.wav")
+    , m_file(std::make_unique< QFile >(":/Sounds/Blow.wav"))
     , m_decoder(new QAudioDecoder(this))
 {
     QAudioFormat format;
@@ -26,9 +26,6 @@ WaveformItem::WaveformItem(QQuickItem *parent)
 
     m_decoder->setAudioFormat(format);
     m_decoder->setSourceDevice(m_file.get());
-
-    // Noooo, setSource does not work when the file is in the resource system.
-    // m_decoder->setSource(m_url);
 
     auto onBufferReady = [this, format]() {
         QAudioBuffer buffer = m_decoder->read();
@@ -68,9 +65,7 @@ void WaveformItem::setFile(const QUrl &url)
     if (m_url == url)
         return;
 
-    // Nooooo, see above.
-    // m_decoder->setSource(url);
-
+    m_waveformData.clear();
     m_url = url;
     m_file.reset();
     m_file = std::make_unique< QFile >(':' + m_url.toString(QUrl::RemoveScheme));
@@ -108,7 +103,6 @@ void WaveformItem::paint(QPainter *painter)
         qreal y1 = centerY - m_waveformData[i - 1] * centerY;
         qreal x2 = i * xStep;
         qreal y2 = centerY - m_waveformData[i] * centerY;
-
         painter->drawLine(QPointF(x1, y1), QPointF(x2, y2));
     }
 }

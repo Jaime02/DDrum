@@ -26,7 +26,7 @@ Rectangle {
         // the resource that gets passed to the AudioEngine using the same
         // prefix path which is bad since Fabian said that resources in the root dir
         // should use the / prefix path.
-        file: "../Sounds/roll.wav"
+        file: "qrc:/Sounds/roll.wav"
     }
 
     Rectangle {

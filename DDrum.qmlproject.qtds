@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtDesignStudio 4.7.0, 2024-11-07T11:18:53. -->
+<!-- Written by QtDesignStudio 4.7.0, 2024-11-15T17:30:44. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
-  <value type="QByteArray">{507bbbc9-f23f-4869-9960-951830501ac7}</value>
+  <value type="QByteArray">{1b209ddb-b77f-4f3d-84f9-901212e41a3c}</value>
  </data>
  <data>
   <variable>ProjectExplorer.Project.ActiveTarget</variable>
@@ -62,9 +62,9 @@
   <variable>ProjectExplorer.Project.Target.0</variable>
   <valuemap type="QVariantMap">
    <value type="QString" key="DeviceType">Desktop</value>
-   <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Qt 6.7.3</value>
-   <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">Qt 6.7.3</value>
-   <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">{aa53fcbe-8567-49c0-a466-9938f0b231e7}</value>
+   <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Desktop</value>
+   <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">Desktop</value>
+   <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">{b2952455-695a-45ed-a927-cc5067373bfa}</value>
    <value type="qlonglong" key="ProjectExplorer.Target.ActiveBuildConfiguration">-1</value>
    <value type="qlonglong" key="ProjectExplorer.Target.ActiveDeployConfiguration">0</value>
    <value type="qlonglong" key="ProjectExplorer.Target.ActiveRunConfiguration">0</value>
@@ -93,6 +93,7 @@
     <value type="bool" key="ProjectExplorer.RunConfiguration.Customized">false</value>
     <value type="QString" key="QmlProjectManager.QmlRunConfiguration.LastUsedLanguage">en</value>
     <value type="QString" key="QmlProjectManager.QmlRunConfiguration.MainScript">CurrentFile</value>
+    <value type="bool" key="QmlProjectManager.QmlRunConfiguration.UseMultiLanguage">true</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
    </valuemap>

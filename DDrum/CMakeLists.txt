@@ -14,11 +14,11 @@ qt6_add_qml_module(DDrum
     VERSION 1.0
     RESOURCE_PREFIX "/qt/qml"
     QML_FILES
-        "Bla.qml"
-        "EventListModel.qml"
         "DirectoryFontLoader.qml"
+        "Bla.qml"
         "Constants.qml"
         "EventListSimulator.qml"
+        "EventListModel.qml"
 )
 
 

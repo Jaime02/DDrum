@@ -1,5 +1,7 @@
+from pathlib import Path
 
-url = "DDrumContent/App.qml"
 import_paths = [
     ".",
 ]
+
+qml_app_url = ":/DDrumContent/App.qml"

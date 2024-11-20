@@ -14,7 +14,7 @@ class AudioEngine(QObject):
     def __init__(self, parent=None):
         super().__init__(parent)
         self._sound = QSoundEffect()
-        self._sound.setSource(QUrl.fromLocalFile("../Sounds/Blow.wav"))
+        self._sound.setSource(QUrl.fromLocalFile(":/Sounds/Blow.wav"))
 
     @Slot(result=None)
     def play(self):
@@ -30,9 +30,7 @@ class AudioEngine(QObject):
     def file(self):
         return self._sound.source()
 
-    def setFile(self, value):
-        value.setScheme("file")
-
+    def setFile(self, value: QUrl):
         if self._sound.source() == value:
             return
 
