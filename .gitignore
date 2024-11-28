@@ -4,3 +4,5 @@ build/
 deployment/
 pysidedeploy.spec
 resources.py
+*.autosave
+*.dist/

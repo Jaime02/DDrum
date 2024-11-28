@@ -1,20 +1,23 @@
-
 <RCC>
-<qresource>
-<file>DDrum.qmlproject</file>
-<file>DDrum/Bla.qml</file>
-<file>DDrum/Constants.qml</file>
-<file>DDrum/DirectoryFontLoader.qml</file>
-<file>DDrum/EventListModel.qml</file>
-<file>DDrum/EventListSimulator.qml</file>
-<file>DDrum/qmldir</file>
-<file>DDrumContent/App.qml</file>
-<file>DDrumContent/Screen01.ui.qml</file>
-<file>Mocks/Audio/AudioEngine.qml</file>
-<file>Mocks/Audio/WaveformItem.qml</file>
-<file>qtquickcontrols2.conf</file>
-<file>Sounds/Blow.wav</file>
-<file>Sounds/roll.wav</file>
-<file>Sounds/tmp.wav</file>
-</qresource>
+    <qresource prefix="/qt/qml">
+        <file>DDrum.qmlproject</file>
+        <file>DDrum/AvailableSoundsComboBox.qml</file>
+        <file>DDrum/Constants.qml</file>
+        <file>DDrum/DirectoryFontLoader.qml</file>
+        <file>DDrum/qmldir</file>
+        <file>DDrum/SoundEffectPlayer.qml</file>
+        <file>DDrumContent/App.qml</file>
+        <file>DDrumContent/MainScreen.ui.qml</file>
+        <file>Mocks/Audio/AudioEngine.qml</file>
+        <file>Mocks/Audio/WaveformItem.qml</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>qtquickcontrols2.conf</file>
+        <file>Sounds/Blow.wav</file>
+        <file>Sounds/Roll.wav</file>
+        <file>Sounds/Synth.wav</file>
+        <file>Sounds/Whistle.wav</file>
+        <file>Sounds/WhistleMonoS32.wav</file>
+        <file>Sounds/WhistleStereoS32.wav</file>
+    </qresource>
 </RCC>

@@ -1,20 +1,19 @@
 from PySide6.QtQml import QmlElement
-from PySide6.QtCore import Qt, QObject, Slot, Property, Signal, QUrl
+from PySide6.QtCore import QObject, Slot, Property, Signal, QUrl
 from PySide6.QtMultimedia import QSoundEffect
 
 QML_IMPORT_NAME = "Audio"
 QML_IMPORT_MAJOR_VERSION = 1
 
+
 @QmlElement
 class AudioEngine(QObject):
-
     volumeChanged = Signal()
     fileChanged = Signal()
 
     def __init__(self, parent=None):
         super().__init__(parent)
         self._sound = QSoundEffect()
-        self._sound.setSource(QUrl.fromLocalFile(":/Sounds/Blow.wav"))
 
     @Slot(result=None)
     def play(self):
@@ -31,9 +30,8 @@ class AudioEngine(QObject):
         return self._sound.source()
 
     def setFile(self, value: QUrl):
-        if self._sound.source() == value:
+        if self._sound.source() == value or value.isEmpty():
             return
-
         self._sound.setSource(value.toString())
         self.fileChanged.emit()
 

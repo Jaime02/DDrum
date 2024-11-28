@@ -1,8 +1,7 @@
 import QtQuick
 import QtMultimedia
 
-Item
-{
+Item {
     id: root
 
     property double volume

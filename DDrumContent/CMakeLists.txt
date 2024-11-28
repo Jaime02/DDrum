@@ -9,8 +9,8 @@ qt6_add_qml_module(DDrumContent
     VERSION 1.0
     RESOURCE_PREFIX "/qt/qml"
     QML_FILES
+        "MainScreen.ui.qml"
         "App.qml"
-        "Screen01.ui.qml"
 )
 
 

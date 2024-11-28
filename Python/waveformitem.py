@@ -1,16 +1,14 @@
 import struct
-from array import array
 
-import numpy as np
 from PySide6.QtCore import Qt, Property, QUrl, Signal, QFile, QPointF
 from PySide6.QtGui import QPen, QPainter
+from PySide6.QtMultimedia import QAudioFormat, QAudioDecoder
 from PySide6.QtQml import QmlElement
 from PySide6.QtQuick import QQuickPaintedItem
-from PySide6.QtMultimedia import QAudioFormat, QAudioDecoder
-from PySide6.QtWidgets import QMessageBox
 
 QML_IMPORT_NAME = "Audio"
 QML_IMPORT_MAJOR_VERSION = 1
+
 
 @QmlElement
 class WaveformItem(QQuickPaintedItem):
@@ -27,8 +25,8 @@ class WaveformItem(QQuickPaintedItem):
         audio_format.setSampleRate(44100)
         audio_format.setSampleFormat(QAudioFormat.Float)
 
-        self._file = QUrl("qrc:/Sounds/roll.wav")
-        self._audio_file: QFile = None
+        self._file: QUrl | None = None
+        self._audio_file: QFile | None = None
 
         self._decoder = QAudioDecoder()
         self._decoder.setAudioFormat(audio_format)
@@ -36,7 +34,7 @@ class WaveformItem(QQuickPaintedItem):
         self._decoder.bufferReady.connect(self.onBufferReady)
         self._decoder.finished.connect(self.decoderFinished)
 
-    def file(self):
+    def file(self) -> QUrl | None:
         return self._file
 
     def setFile(self, value: QUrl):
@@ -50,7 +48,9 @@ class WaveformItem(QQuickPaintedItem):
         self._decoder.stop()
 
         self._file = value
-        self._audio_file = QFile(":" + self._file.toString(QUrl.ComponentFormattingOption(QUrl.RemoveScheme)))
+        self._audio_file = QFile(
+            ":" + self._file.toString(QUrl.ComponentFormattingOption(QUrl.RemoveScheme))
+        )
         self._audio_file.open(QFile.ReadOnly)
         self._decoder.setSourceDevice(self._audio_file)
         self._decoder.start()
@@ -94,7 +94,7 @@ class WaveformItem(QQuickPaintedItem):
         # Calculate the number of 32-bit floats in the buffer
         float_count = len(data) // 4  # Each float32 is 4 bytes
         # Unpack the binary data into a list of floats
-        return list(struct.unpack(f'{float_count}f', data))
+        return list(struct.unpack(f"{float_count}f", data))
 
     def onBufferReady(self):
         buffer = self._decoder.read()

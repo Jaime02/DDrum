@@ -28,5 +28,6 @@ public:
     Q_INVOKABLE void play();
 
 private:
+    QUrl m_file;
     QSoundEffect m_effect;
 };

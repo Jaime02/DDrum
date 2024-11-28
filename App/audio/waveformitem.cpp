@@ -15,22 +15,20 @@ WaveformItem::WaveformItem(QQuickItem *parent)
     : QQuickPaintedItem(parent)
     , m_name("CPP Waveform")
     , m_color(Qt::green)
-    , m_url(":/Sounds/Blow.wav")
-    , m_file(std::make_unique< QFile >(":/Sounds/Blow.wav"))
     , m_decoder(new QAudioDecoder(this))
 {
     QAudioFormat format;
-    format.setChannelCount(1);
+    format.setChannelCount(2);
     format.setSampleRate(44100);
     format.setSampleFormat(QAudioFormat::Float);
 
     m_decoder->setAudioFormat(format);
     m_decoder->setSourceDevice(m_file.get());
 
-    auto onBufferReady = [this, format]() {
+    auto onBufferReady = [this]() {
         QAudioBuffer buffer = m_decoder->read();
         const float *data = buffer.constData<float>();
-        if(!data) { qDebug() << "Error (WaveformItem): Buffer is empty"; return; }
+        if(!data) { qCritical() << "Error (WaveformItem): Buffer is empty"; return; }
         for (int i = 0; i < buffer.frameCount(); ++i)
             m_waveformData.append(static_cast<qreal>(data[i]));
         update();
@@ -38,7 +36,7 @@ WaveformItem::WaveformItem(QQuickItem *parent)
 
     connect(m_decoder, &QAudioDecoder::bufferReady, onBufferReady);
     connect(m_decoder, QOverload<QAudioDecoder::Error>::of(&QAudioDecoder::error),
-        [=](QAudioDecoder::Error error){ qDebug() << "Error (WaveformItem): " << error; } );
+        [=](QAudioDecoder::Error error){ qCritical() << "WaveformItem error: " << error; } );
 
     m_decoder->start();
 }

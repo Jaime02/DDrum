@@ -5,12 +5,11 @@ import QmlProject
 
 Project {
     mainFile: "DDrumContent/App.qml"
-    mainUiFile: "DDrumContent/Screen01.ui.qml"
-    targetDirectory: "/opt/DDrum"
+    mainUiFile: "DDrumContent/MainScreen.ui.qml"
     enableCMakeGeneration: true
     enablePythonGeneration: false
     widgetApp: true
-    importPaths: [ "." ]
+    importPaths: [ "DDrum" ]
     mockImports: [ "Mocks" ]
 
     qdsVersion: "4.5"
@@ -30,11 +29,6 @@ Project {
         QT_QUICK_CONTROLS_CONF: "qtquickcontrols2.conf"
     }
 
-    ShaderTool {
-        args: "-s --glsl \"100 es,120,150\" --hlsl 50 --msl 12"
-        files: [ "DDrumContent/shaders/*" ]
-    }
-
     QmlFiles {
         directory: "DDrum"
     }
@@ -49,31 +43,14 @@ Project {
 
     Files {
         directory: "Sounds"
-        filter: "*.wav"
+        filter: "*.mp3;*.wav"
     }
 
     QmlFiles {
         directory: "Mocks/Audio"
     }
 
-    JavaScriptFiles {
-        directory: "DDrum"
-    }
-
-    JavaScriptFiles {
-        directory: "DDrum"
-    }
-
-    ImageFiles {
-        directory: "DDrumContent"
-    }
-
-    ImageFiles {
-        directory: "Generated"
-    }
-
     Files {
-        filter: "*.conf"
         files: [
             "qtquickcontrols2.conf"
         ]
@@ -85,41 +62,7 @@ Project {
     }
 
     Files {
-        directory: "DDrum"
-        filter: "*.bla"
-    }
-
-    Files {
+        directory: "DDrumContent"
         filter: "*.ttf;*.otf"
-    }
-
-    Files {
-        filter: "*.wav;*.mp3"
-    }
-
-    Files {
-        filter: "*.mp4"
-    }
-
-    Files {
-        filter: "*.glsl;*.glslv;*.glslf;*.vsh;*.fsh;*.vert;*.frag"
-    }
-
-    Files {
-        filter: "*.qsb"
-    }
-
-    Files {
-        filter: "*.json"
-    }
-
-    Files {
-        directory: "Generated"
-        filter: "*.mesh"
-    }
-
-    Files {
-        directory: "Generated"
-        filter: "*.qad"
     }
 }

@@ -5,14 +5,17 @@ import QtQuick
 import DDrum
 
 Window {
-    width: mainScreen.width
-    height: mainScreen.height
+    id: root
+
+    width: Constants.width
+    height: Constants.height
 
     visible: true
     title: "DDrum"
 
-    Screen01 {
+    MainScreen {
         id: mainScreen
+        anchors.centerIn: parent
     }
 }
 
