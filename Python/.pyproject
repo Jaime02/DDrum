@@ -1,0 +1,3 @@
+{
+    "files": ["main.py", "audioengine.py", "waveformitem.py"]
+}
