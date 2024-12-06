@@ -6,16 +6,14 @@ import DDrum
 
 Window {
     id: root
-
-    width: Constants.width
-    height: Constants.height
-
+    width: 800
+    height: 600
     visible: true
     title: "DDrum"
 
     MainScreen {
         id: mainScreen
-        anchors.centerIn: parent
+        anchors.fill: parent
     }
 }
 

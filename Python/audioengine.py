@@ -2,6 +2,8 @@ from PySide6.QtQml import QmlElement
 from PySide6.QtCore import QObject, Slot, Property, Signal, QUrl
 from PySide6.QtMultimedia import QSoundEffect
 
+from autogen.settings import project_root
+
 QML_IMPORT_NAME = "Audio"
 QML_IMPORT_MAJOR_VERSION = 1
 
@@ -32,7 +34,11 @@ class AudioEngine(QObject):
     def setFile(self, value: QUrl):
         if self._sound.source() == value or value.isEmpty():
             return
-        self._sound.setSource(value.toString())
+
+        if "__compiled__" in globals():
+            self._sound.setSource(f"qrc:/{value.toString()}")
+        else:
+            self._sound.setSource(f"file:{project_root / value.toString()}")
         self.fileChanged.emit()
 
     volume = Property(float, volume, setVolume, notify=volumeChanged)

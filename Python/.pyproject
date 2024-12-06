@@ -1,3 +1,3 @@
 {
-    "files": ["main.py", "audioengine.py", "waveformitem.py"]
+    "files": ["main.py", "audioengine.py", "waveformitem.py", "audio_files_model.py"]
 }

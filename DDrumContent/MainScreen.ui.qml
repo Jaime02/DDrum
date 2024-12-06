@@ -13,9 +13,6 @@ import QtQuick.Layouts
 Rectangle {
     id: rectangle
 
-    color: Constants.backgroundColor
-    anchors.fill: parent
-
     ColumnLayout {
         anchors.fill: parent
         anchors.margins: 10

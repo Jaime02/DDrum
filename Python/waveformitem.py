@@ -6,6 +6,8 @@ from PySide6.QtMultimedia import QAudioFormat, QAudioDecoder
 from PySide6.QtQml import QmlElement
 from PySide6.QtQuick import QQuickPaintedItem
 
+from autogen.settings import project_root
+
 QML_IMPORT_NAME = "Audio"
 QML_IMPORT_MAJOR_VERSION = 1
 
@@ -25,7 +27,7 @@ class WaveformItem(QQuickPaintedItem):
         audio_format.setSampleRate(44100)
         audio_format.setSampleFormat(QAudioFormat.Float)
 
-        self._file: QUrl | None = None
+        self._file_url: QUrl | None = None
         self._audio_file: QFile | None = None
 
         self._decoder = QAudioDecoder()
@@ -35,7 +37,7 @@ class WaveformItem(QQuickPaintedItem):
         self._decoder.finished.connect(self.decoderFinished)
 
     def file(self) -> QUrl | None:
-        return self._file
+        return self._file_url
 
     def setFile(self, value: QUrl):
         if self._decoder.source() == value:
@@ -47,10 +49,12 @@ class WaveformItem(QQuickPaintedItem):
         self._waveformData = []
         self._decoder.stop()
 
-        self._file = value
-        self._audio_file = QFile(
-            ":" + self._file.toString(QUrl.ComponentFormattingOption(QUrl.RemoveScheme))
-        )
+        self._file_url = value
+        if "__compiled__" in globals():
+            path = self._file_url.toString().replace("qrc:/", ":/")
+        else:
+            path = self._file_url.path()
+        self._audio_file = QFile(path)
         self._audio_file.open(QFile.ReadOnly)
         self._decoder.setSourceDevice(self._audio_file)
         self._decoder.start()

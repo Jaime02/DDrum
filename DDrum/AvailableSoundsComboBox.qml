@@ -1,22 +1,18 @@
 import QtQuick
 import QtQuick.Controls
 import Qt.labs.folderlistmodel
+import Components
 
 ComboBox {
     id: root
 
-    property string currentFile: currentText ? `qrc:/Sounds/${currentText}` : ""
+    property string currentFile: currentText ? `Sounds/${currentText}` : ""
 
-    FolderListModel {
-        id: soundsModel
-        folder: "qrc:/Sounds"
-        nameFilters: ["*.wav", "*.mp3"]
-        onStatusChanged: soundsModel.status == FolderListModel.Ready && soundsModel.count > 0 ? root.currentIndex = 0 : {};
+    AudioFilesModel {
+        id: audioFilesModel
     }
 
-    model: soundsModel
-
-    textRole: "fileName"
+    model: audioFilesModel.getModel()
 
     contentItem: Text {
         leftPadding: 0

@@ -2,8 +2,6 @@
     <qresource prefix="/qt/qml">
         <file>DDrum.qmlproject</file>
         <file>DDrum/AvailableSoundsComboBox.qml</file>
-        <file>DDrum/Constants.qml</file>
-        <file>DDrum/DirectoryFontLoader.qml</file>
         <file>DDrum/qmldir</file>
         <file>DDrum/SoundEffectPlayer.qml</file>
         <file>DDrumContent/App.qml</file>
@@ -12,12 +10,12 @@
         <file>Mocks/Audio/WaveformItem.qml</file>
     </qresource>
     <qresource prefix="/">
-        <file>qtquickcontrols2.conf</file>
         <file>Sounds/Blow.wav</file>
         <file>Sounds/Roll.wav</file>
         <file>Sounds/Synth.wav</file>
         <file>Sounds/Whistle.wav</file>
         <file>Sounds/WhistleMonoS32.wav</file>
         <file>Sounds/WhistleStereoS32.wav</file>
+        <file>qtquickcontrols2.conf</file>
     </qresource>
 </RCC>

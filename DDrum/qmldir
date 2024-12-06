@@ -1,5 +1,3 @@
 module DDrum
-singleton Constants 1.0 Constants.qml
-DirectoryFontLoader 1.0 DirectoryFontLoader.qml
 AvailableSoundsComboBox 1.0 AvailableSoundsComboBox.qml
 SoundEffectPlayer 1.0 SoundEffectPlayer.qml
