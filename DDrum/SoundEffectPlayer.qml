@@ -15,11 +15,6 @@ ColumnLayout {
         file: availableSoundsComboBox.currentFile
     }
 
-    Text {
-        Layout.alignment: Qt.AlignCenter
-        text: "Select sound:"
-    }
-
     AvailableSoundsComboBox {
         id: availableSoundsComboBox
         Layout.alignment: Qt.AlignCenter
@@ -56,7 +51,7 @@ ColumnLayout {
 
         Slider {
             id: volumeSlider
-            value: 0.5
+            value: 0.75
             orientation: Qt.Vertical
             height: padRectangle.height
         }
