@@ -11,7 +11,9 @@ import Audio
 import QtQuick.Layouts
 
 Rectangle {
-    id: rectangle
+    id: root
+
+    property QtObject soundEffectPlayer: Qt.createComponent("../DDrum/SoundEffectPlayer.qml", Component.PreferSynchronous);
 
     ColumnLayout {
         anchors.fill: parent
@@ -20,6 +22,7 @@ Rectangle {
         Row {
             id: audioPlayersCountRow
             spacing: 5
+            Layout.alignment: Qt.AlignHCenter
             Text {
                 text: "Audio players:"
                 anchors.verticalCenter: parent.verticalCenter
@@ -27,7 +30,20 @@ Rectangle {
 
             SpinBox {
                 id: audioPlayersSpinBox
-                value:  4
+                value: 2
+
+                onValueModified: {
+                    if (audioPlayersSpinBox.value < soundEffectPlayersFlow.children.length) {
+                        soundEffectPlayersFlow.children.length = audioPlayersSpinBox.value;
+                        return;
+                    }
+                    if (audioPlayersSpinBox.value > soundEffectPlayersFlow.children.length) {
+                        for (var i = soundEffectPlayersFlow.children.length; i < audioPlayersSpinBox.value; i++) {
+                            root.soundEffectPlayer.createObject(soundEffectPlayersFlow);
+                        }
+                        return;
+                    }
+                }
             }
         }
 
@@ -35,15 +51,17 @@ Rectangle {
             Layout.fillWidth: true
             Layout.fillHeight: true
             contentWidth: width
-            Flow {
+            CenteredFlow {
+                id: soundEffectPlayersFlow
                 anchors.fill: parent
                 spacing: 10
-                Repeater {
-                    model: audioPlayersSpinBox.value
-                    SoundEffectPlayer {
-                    }
-                }
             }
+        }
+    }
+
+    Component.onCompleted: {
+        for (var i = 0; i < audioPlayersSpinBox.value; i++) {
+            root.soundEffectPlayer.createObject(soundEffectPlayersFlow);
         }
     }
 }
