@@ -6,3 +6,4 @@ pysidedeploy.spec
 resources.py
 *.autosave
 *.dist/
+Dependencies/

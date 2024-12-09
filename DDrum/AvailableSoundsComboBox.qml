@@ -16,8 +16,8 @@ ComboBox {
 
     background: Rectangle {
         implicitHeight: 30
-        color: root.pressed ? "#ac0000" : "black"
-        border.color: root.pressed ? "#ff0000" : "#ac0000"
+        color: root.pressed ? Constants.secondaryColor : "black"
+        border.color: root.pressed ? Constants.primaryColor : Constants.secondaryColor
         border.width: root.visualFocus ? 3 : 2
         radius: 2
     }
@@ -77,7 +77,8 @@ ComboBox {
         }
 
         background: Rectangle {
-            color: "black"
+            width: popup.width
+            color: highlighted ? Constants.darkGray : "black"
             implicitWidth: contentItem.implicitWidth
         }
     }
@@ -101,7 +102,7 @@ ComboBox {
 
         background: Rectangle {
             color: "black"
-            border.color: "#ff0000"
+            border.color: Constants.primaryColor
             border.width: 2
         }
     }

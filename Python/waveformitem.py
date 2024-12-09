@@ -6,8 +6,6 @@ from PySide6.QtMultimedia import QAudioFormat, QAudioDecoder
 from PySide6.QtQml import QmlElement
 from PySide6.QtQuick import QQuickPaintedItem
 
-from autogen.settings import project_root
-
 QML_IMPORT_NAME = "Audio"
 QML_IMPORT_MAJOR_VERSION = 1
 
@@ -20,7 +18,7 @@ class WaveformItem(QQuickPaintedItem):
     def __init__(self, parent=None):
         super().__init__(parent)
         self._waveformData = []
-        self._color = Qt.green
+        self._background_color = Qt.black
 
         audio_format = QAudioFormat()
         audio_format.setChannelCount(1)
@@ -62,11 +60,11 @@ class WaveformItem(QQuickPaintedItem):
 
     def paint(self, painter):
         # Fill the bounding rectangle with the specified color
-        painter.fillRect(self.boundingRect(), self._color)
+        painter.fillRect(self.boundingRect(), self._background_color)
 
         # If no waveform data is available, draw the text
         if not self._waveformData:
-            painter.setPen(Qt.black)
+            painter.setPen(Qt.white)
             painter.drawText(self.boundingRect(), Qt.AlignCenter, "Waveform not available")
             return
 

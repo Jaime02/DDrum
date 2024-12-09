@@ -9,7 +9,7 @@ Project {
     enableCMakeGeneration: true
     enablePythonGeneration: false
     widgetApp: true
-    importPaths: [ "DDrum" ]
+    importPaths: [ "." ]
     mockImports: [ "Mocks" ]
 
     qdsVersion: "4.5"

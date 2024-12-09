@@ -1,9 +1,10 @@
 import QtQuick
 
 Flow {
-    property int rowCount: parent.width / (children[0].width + spacing)
-    property int rowWidth: rowCount * children[0].width + (rowCount - 1) * spacing
-    property int margin: children[0].width + spacing <= parent.width ? (parent.width - rowWidth) / 2 : 0
+    property int rowCount: children.length ? (parent.width - 2 * padding) / (children[0].width + spacing) : 0
+    property int rowWidth: children.length ? rowCount * children[0].width + (rowCount - 1) * spacing + 2 * padding : 0
+    property int margin: (children.length && (children[0].width + spacing <= (parent.width - 2 * padding))) ?
+                         (parent.width - 2 * padding - rowWidth) / 2 + padding : padding
     anchors {
         leftMargin: margin
         rightMargin: margin

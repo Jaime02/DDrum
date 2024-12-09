@@ -4,17 +4,18 @@
 add_subdirectory(DDrum)
 add_subdirectory(DDrumContent)
 add_subdirectory(App)
+add_subdirectory(Dependencies)
 
 qt6_add_resources(${CMAKE_PROJECT_NAME} MainResource
     PREFIX "/qt/qml"
     VERSION 1.0
     FILES 
-        "Sounds/Blow.wav"
-        "Sounds/WhistleStereoS32.wav"
         "Sounds/Whistle.wav"
-        "Sounds/Roll.wav"
-        "Sounds/Synth.wav"
         "Sounds/WhistleMonoS32.wav"
+        "Sounds/WhistleStereoS32.wav"
+        "Sounds/Synth.wav"
+        "Sounds/Blow.wav"
+        "Sounds/Roll.wav"
 )
 
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
