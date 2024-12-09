@@ -1,6 +1,7 @@
 module DDrum
 
 AvailableSoundsComboBox 1.0 AvailableSoundsComboBox.qml
+AvailableSoundsComboBoxDelegate 1.0 AvailableSoundsComboBoxDelegate.qml
 SoundEffectPlayer 1.0 SoundEffectPlayer.qml
 CenteredFlow 1.0 CenteredFlow.qml
 VolumeSlider 1.0 VolumeSlider.qml
