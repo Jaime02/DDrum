@@ -59,6 +59,7 @@ Rectangle {
             AvailableSoundsComboBox {
                 id: availableSoundsComboBox
                 Layout.alignment: Qt.AlignCenter
+                initialIndex: root.index
             }
         }
 

@@ -7,12 +7,17 @@ ComboBox {
     id: root
 
     property string currentFile: currentText ? `Sounds/${currentText}` : ""
+    required property int initialIndex
 
     AudioFilesModel {
         id: audioFilesModel
     }
 
     model: audioFilesModel.getModel()
+
+    Component.onCompleted: {
+        currentIndex = root.initialIndex;
+    }
 
     background: Rectangle {
         implicitHeight: 30
