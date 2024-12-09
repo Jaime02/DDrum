@@ -10,7 +10,7 @@ from autogen.settings import qml_app_url, project_root
 
 import audioengine  # noqa: F401
 import waveformitem  # noqa: F401
-import audio_files_model  # noqa: F401
+import components.audio_files_model  # noqa: F401
 
 
 def main():

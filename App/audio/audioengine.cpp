@@ -2,17 +2,23 @@
 
 #include <iostream>
 #include <QAudioOutput>
+#include <QString>
 
 AudioEngine::AudioEngine(QObject *parent)
     : QObject(parent)
-    , m_effect(this)
+    , m_soundEffect(this)
 {
-    auto checkSoundEffectStatus = [this]() {
-        if (m_effect.status() == QSoundEffect::Error)
-            qCritical() << "AudioEngine error";
-    };
 
-    connect(&m_effect, &QSoundEffect::statusChanged, this, checkSoundEffectStatus);
+    connect(&m_soundEffect, &QSoundEffect::playingChanged, this, [this]() {
+        emit isPlayingChanged();
+    });
+
+    connect(&m_soundEffect, &QSoundEffect::statusChanged, this, [this]() {
+        if (m_soundEffect.status() == QSoundEffect::Error)
+            emit decodingStatusChanged(QSoundEffect::Error, "AudioEngine error");
+        else
+            emit decodingStatusChanged(m_soundEffect.status(), "");
+    });
 }
 
 QUrl AudioEngine::file() const
@@ -22,30 +28,33 @@ QUrl AudioEngine::file() const
 
 void AudioEngine::setFile(const QUrl &url)
 {
-    // qDebug() << "CPP: AudioEngine::setFile() " << url;
-    if (m_effect.source() == url)
+    if (m_soundEffect.source() == url)
         return;
 
-    m_file = url;
-    m_effect.setSource(url);
+    auto resourceUrl = QUrl("qrc:/qt/qml/").resolved(url);
+    qDebug() << "AudioEngine::setFile() " << resourceUrl;
+    m_file = resourceUrl;
+    m_soundEffect.setSource(resourceUrl);
     emit fileChanged();
 }
 
 double AudioEngine::volume() const
 {
-    // qDebug() << "CPP: AudioEngine::volume()";
-    return m_effect.volume();
+    return m_soundEffect.volume();
 }
 
 void AudioEngine::setVolume(double volume)
 {
-    // qDebug() << "CPP: AudioEngine::setVolume() " << volume;
-    m_effect.setVolume(volume);
+    m_soundEffect.setVolume(volume);
     emit volumeChanged();
 }
 
 void AudioEngine::play()
 {
-    // qDebug() << "CPP: AudioEngine::play()";
-    m_effect.play();
+    m_soundEffect.play();
+}
+
+bool AudioEngine::isPlaying() const
+{
+    return m_soundEffect.isPlaying();
 }

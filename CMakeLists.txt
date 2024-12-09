@@ -16,7 +16,7 @@ set(QML_IMPORT_PATH ${QT_QML_OUTPUT_DIRECTORY}
     FORCE
 )
 
-find_package(Qt6 6.7 REQUIRED COMPONENTS Core Gui Qml Quick Multimedia)
+find_package(Qt6 6.8 REQUIRED COMPONENTS Core Gui Qml Quick Multimedia)
 qt_standard_project_setup()
 
 qt_add_executable(${CMAKE_PROJECT_NAME})

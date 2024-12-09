@@ -30,7 +30,7 @@ Rectangle {
             volume: volumeSlider.value
             file: availableSoundsComboBox.currentFile
 
-            onDecodingStatus: (status, error) => {
+            onDecodingStatusChanged: (status, error) => {
                 root.status = status;
                 if (status == SoundEffect.Error && error) {
                     root.decodingError = error;

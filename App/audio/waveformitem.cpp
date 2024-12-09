@@ -1,13 +1,13 @@
 #include "waveformitem.h"
 
-
 #include <QAudioDevice>
-#include <QMediaDevices>
-#include <QFile>
-#include <QAudioSource>
 #include <QAudioSink>
-#include <QFileInfo>
+#include <QAudioSource>
 #include <QDir>
+#include <QFile>
+#include <QFileInfo>
+#include <QMediaDevices>
+
 
 using namespace Qt::Literals;
 
@@ -23,22 +23,24 @@ WaveformItem::WaveformItem(QQuickItem *parent)
     format.setSampleFormat(QAudioFormat::Float);
 
     m_decoder->setAudioFormat(format);
-    m_decoder->setSourceDevice(m_file.get());
 
     auto onBufferReady = [this]() {
         QAudioBuffer buffer = m_decoder->read();
         const float *data = buffer.constData<float>();
-        if(!data) { qCritical() << "Error (WaveformItem): Buffer is empty"; return; }
+        if (!data) {
+            qCritical() << "Error (WaveformItem): Buffer is empty";
+            return;
+        }
         for (int i = 0; i < buffer.frameCount(); ++i)
             m_waveformData.append(static_cast<qreal>(data[i]));
         update();
     };
 
     connect(m_decoder, &QAudioDecoder::bufferReady, onBufferReady);
-    connect(m_decoder, QOverload<QAudioDecoder::Error>::of(&QAudioDecoder::error),
-        [=](QAudioDecoder::Error error){ qCritical() << "WaveformItem error: " << error; } );
-
-    m_decoder->start();
+    connect(m_decoder, QOverload<QAudioDecoder::Error>::of(&QAudioDecoder::error), [this]() {
+        qCritical() << "WaveformItem error: " << m_decoder->error() << "\n"
+                    << m_decoder->errorString();
+    });
 }
 
 QString WaveformItem::name() const
@@ -65,9 +67,11 @@ void WaveformItem::setFile(const QUrl &url)
 
     m_waveformData.clear();
     m_url = url;
+    if (m_file.get())
+        m_file.get()->close();
     m_file.reset();
-    m_file = std::make_unique< QFile >(':' + m_url.toString(QUrl::RemoveScheme));
-
+    m_file = std::make_unique<QFile>(m_url.toString().replace("qrc:/", ":/"));
+    m_file.get()->open(QFile::ReadOnly);
     m_decoder->setSourceDevice(m_file.get());
     m_decoder->start();
     emit fileChanged();

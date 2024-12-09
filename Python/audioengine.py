@@ -15,48 +15,50 @@ class AudioEngine(QObject):
     volumeChanged = Signal()
     fileChanged = Signal()
     isPlayingChanged = Signal()
-    decodingStatus = Signal(QSoundEffect.Status, str)
+    decodingStatusChanged = Signal(QSoundEffect.Status, str)
 
     def __init__(self, parent=None):
         super().__init__(parent)
-        self._sound = QSoundEffect()
-        self._sound.playingChanged.connect(self.isPlayingChanged.emit)#
-        self._sound.statusChanged.connect(self.reportStatus)
+        self._sound_effect = QSoundEffect()
+        self._sound_effect.playingChanged.connect(self.isPlayingChanged.emit)  #
+        self._sound_effect.statusChanged.connect(self.reportStatus)
 
     def reportStatus(self):
-        if self._sound.status() == QSoundEffect.Status.Error:
-            self.decodingStatus.emit(QSoundEffect.Status.Error, f"Error decoding file: {self._sound.source().path()}")
+        if self._sound_effect.status() == QSoundEffect.Status.Error:
+            self.decodingStatusChanged.emit(
+                QSoundEffect.Status.Error,
+                f"Error decoding file: {self._sound_effect.source().path()}",
+            )
         else:
-            self.decodingStatus.emit(self._sound.status(), "")
+            self.decodingStatusChanged.emit(self._sound_effect.status(), "")
 
     @Slot(result=None)
     def play(self):
-        self._sound.play()
+        self._sound_effect.play()
 
     def volume(self):
-        return self._sound.volume()
+        return self._sound_effect.volume()
 
     def setVolume(self, value):
-        self._sound.setVolume(value)
+        self._sound_effect.setVolume(value)
         self.volumeChanged.emit()
 
     def file(self):
-        return self._sound.source()
+        return self._sound_effect.source()
 
     def setFile(self, value: QUrl):
-        if self._sound.source() == value or value.isEmpty():
+        if self._sound_effect.source() == value or value.isEmpty():
             return
 
         if "__compiled__" in globals():
-            self._sound.setSource(f"qrc:/{value.toString()}")
+            self._sound_effect.setSource(f"qrc:/{value.toString()}")
         else:
-            self._sound.setSource(f"file:{project_root / value.toString()}")
+            self._sound_effect.setSource(f"file:{project_root / value.toString()}")
         self.fileChanged.emit()
 
     def isPlaying(self):
         # print("Isplaying", self._sound.isPlaying())
-        return self._sound.isPlaying()
-
+        return self._sound_effect.isPlaying()
 
     volume = Property(float, volume, setVolume, notify=volumeChanged)
     file = Property(QUrl, file, setFile, notify=fileChanged)

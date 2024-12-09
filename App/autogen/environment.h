@@ -6,8 +6,8 @@
 #include <QGuiApplication>
 #include "qqmlextensionplugin.h"
 
-Q_IMPORT_QML_PLUGIN(DDrumPlugin)
 Q_IMPORT_QML_PLUGIN(DDrumContentPlugin)
+Q_IMPORT_QML_PLUGIN(DDrumPlugin)
 
 const char mainQmlFile[] = "qrc:/qt/qml/DDrumContent/App.qml";
 

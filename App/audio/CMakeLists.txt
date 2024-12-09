@@ -1,4 +1,3 @@
-
 qt_add_library(audio STATIC)
 qt6_add_qml_module(audio
     URI Audio
@@ -11,5 +10,4 @@ qt6_add_qml_module(audio
         "waveformitem.cpp"
 )
 
-target_link_libraries(audio PRIVATE
-    Qt${QT_VERSION_MAJOR}::Multimedia)
+target_link_libraries(audio PRIVATE Qt${QT_VERSION_MAJOR}::Multimedia)
