@@ -2,12 +2,14 @@
     <qresource prefix="/qt/qml">
         <file>DDrum.qmlproject</file>
         <file>DDrum/AvailableSoundsComboBox.qml</file>
+        <file>DDrum/CenteredFlow.qml</file>
+        <file>DDrum/Constants.qml</file>
         <file>DDrum/qmldir</file>
         <file>DDrum/SoundEffectPlayer.qml</file>
+        <file>DDrum/StyledSpinBox.qml</file>
+        <file>DDrum/VolumeSlider.qml</file>
         <file>DDrumContent/App.qml</file>
-        <file>DDrumContent/MainScreen.ui.qml</file>
-        <file>Mocks/Audio/AudioEngine.qml</file>
-        <file>Mocks/Audio/WaveformItem.qml</file>
+        <file>DDrumContent/MainScreen.qml</file>
     </qresource>
     <qresource prefix="/">
         <file>Sounds/Blow.wav</file>
