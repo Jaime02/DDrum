@@ -15,7 +15,7 @@ AudioEngine::AudioEngine(QObject *parent)
 
     connect(&m_soundEffect, &QSoundEffect::statusChanged, this, [this]() {
         if (m_soundEffect.status() == QSoundEffect::Error)
-            emit decodingStatusChanged(QSoundEffect::Error, "AudioEngine error");
+            emit decodingStatusChanged(QSoundEffect::Error, "Error decoding file: " + m_soundEffect.source().path());
         else
             emit decodingStatusChanged(m_soundEffect.status(), "");
     });

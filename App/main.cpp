@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
     const QUrl url(mainQmlFile);
 
-#if 1
+#if 0
     qDebug() << "Resources found:";
     auto iter = QDirIterator(":/", QDirIterator::Subdirectories);
     while(iter.hasNext()) {

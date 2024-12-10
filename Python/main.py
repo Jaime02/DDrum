@@ -2,8 +2,7 @@ import os
 import sys
 from pathlib import Path
 
-from PySide6.QtCore import QDirIterator
-from PySide6.QtGui import QGuiApplication
+from PySide6.QtGui import QGuiApplication, QWindow
 from PySide6.QtQml import QQmlApplicationEngine
 
 from autogen.settings import qml_app_url, project_root
@@ -20,7 +19,7 @@ def main():
     engine.addImportPath(str(project_root.absolute()))
     if '__compiled__' in globals():
         try:
-            import autogen.resources  # noqa: F401
+            import autogen.resources  # type: ignore noqa: F401
         except ImportError:
             resource_file = Path(__file__).parent / 'autogen' / 'resources.py'
             print(

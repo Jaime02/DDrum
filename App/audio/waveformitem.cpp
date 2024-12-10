@@ -67,12 +67,12 @@ void WaveformItem::setFile(const QUrl &url)
 
     m_waveformData.clear();
     m_url = url;
-    if (m_file.get())
-        m_file.get()->close();
-    m_file.reset();
-    m_file = std::make_unique<QFile>(m_url.toString().replace("qrc:/", ":/"));
-    m_file.get()->open(QFile::ReadOnly);
-    m_decoder->setSourceDevice(m_file.get());
+    if (m_file != nullptr)
+        m_file->close();
+
+    m_file = new QFile(m_url.toString().replace("qrc:/", ":/"));
+    m_file->open(QFile::ReadOnly);
+    m_decoder->setSourceDevice(m_file);
     m_decoder->start();
     emit fileChanged();
 }

@@ -73,18 +73,18 @@ ComboBox {
         highlighted: root.highlightedIndex === index
 
         contentItem: Text {
-            text: root.model[index]
+            text: root.model[delegate.index]
             anchors.fill: parent
             leftPadding: 10
-            color: highlighted ? "#ff0000" : "white"
+            color: delegate.highlighted ? "#ff0000" : "white"
             elide: Text.ElideRight
             verticalAlignment: Text.AlignVCenter
         }
 
         background: Rectangle {
             width: popup.width
-            color: highlighted ? Constants.darkGray : "black"
-            implicitWidth: contentItem.implicitWidth
+            color: delegate.highlighted ? Constants.darkGray : "black"
+            implicitWidth: delegate.contentItem.implicitWidth
         }
     }
 

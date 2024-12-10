@@ -33,10 +33,7 @@ private:
     QColor m_color;
 
     QUrl m_url;
-
-    // Using QFile to trick the non functional audiodecoder->setSource
-    // Works with Qt6.7 but not with 6.8
-    std::unique_ptr< QFile > m_file;
+    QFile* m_file = nullptr;
     QAudioDecoder* m_decoder;
     QVector<qreal> m_waveformData;
 };

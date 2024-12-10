@@ -25,6 +25,7 @@ Rectangle {
             id: audioPlayersCountRow
             spacing: 5
             Layout.alignment: Qt.AlignHCenter
+
             Text {
                 color: "white"
                 text: "Audio players:"
@@ -57,6 +58,7 @@ Rectangle {
             Layout.fillWidth: true
             Layout.fillHeight: true
             contentWidth: width
+            
             CenteredFlow {
                 id: soundEffectPlayersFlow
                 anchors.fill: parent
