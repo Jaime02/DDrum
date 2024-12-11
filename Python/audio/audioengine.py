@@ -51,7 +51,8 @@ class AudioEngine(QObject):
             return
 
         if "__compiled__" in globals():
-            self._sound_effect.setSource(f"qrc:/{value.toString()}")
+            print(f"Set file to qrc:/qt/qml/{value.toString()}")
+            self._sound_effect.setSource(f"qrc:/qt/qml/{value.toString()}")
         else:
             self._sound_effect.setSource(f"file:{project_root / value.toString()}")
         self.fileChanged.emit()

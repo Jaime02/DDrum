@@ -49,6 +49,7 @@ class WaveformItem(QQuickPaintedItem):
 
         self._file_url = value
         if "__compiled__" in globals():
+            print(f"WaveformItem: Set file to qrc:/qt/qml/{self._file_url.toString()}")
             path = self._file_url.toString().replace("qrc:/", ":/")
         else:
             path = self._file_url.path()

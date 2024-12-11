@@ -15,11 +15,11 @@ qt6_add_qml_module(DDrum
     RESOURCE_PREFIX "/qt/qml"
     QML_FILES
         "StyledSpinBox.qml"
+        "SoundEffectPlayer.qml"
         "Constants.qml"
+        "VolumeSlider.qml"
         "CenteredFlow.qml"
         "AvailableSoundsComboBox.qml"
-        "SoundEffectPlayer.qml"
-        "VolumeSlider.qml"
 )
 
 
