@@ -7,3 +7,4 @@ resources.py
 *.autosave
 *.dist/
 Dependencies/
+*.qtds
