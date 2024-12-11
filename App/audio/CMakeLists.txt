@@ -8,6 +8,8 @@ qt6_add_qml_module(audio
         "audioengine.cpp"
         "waveformitem.h"
         "waveformitem.cpp"
+        "audiofilesmodel.h"
+        "audiofilesmodel.cpp"
 )
 
 target_link_libraries(audio PRIVATE Qt${QT_VERSION_MAJOR}::Multimedia)

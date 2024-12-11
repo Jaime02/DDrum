@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/qt/qml">
-        <file>DDrum.qmlproject</file>
         <file>DDrum/AvailableSoundsComboBox.qml</file>
         <file>DDrum/CenteredFlow.qml</file>
         <file>DDrum/Constants.qml</file>
@@ -10,14 +9,12 @@
         <file>DDrum/VolumeSlider.qml</file>
         <file>DDrumContent/App.qml</file>
         <file>DDrumContent/MainScreen.qml</file>
-    </qresource>
-    <qresource prefix="/">
-        <file>Sounds/Blow.wav</file>
+        <file>Sounds/Bass.wav</file>
         <file>Sounds/Roll.wav</file>
         <file>Sounds/Synth.wav</file>
+        <file>Sounds/Cowbell.wav</file>
         <file>Sounds/Whistle.wav</file>
-        <file>Sounds/WhistleMonoS32.wav</file>
-        <file>Sounds/WhistleStereoS32.wav</file>
+        <file>Sounds/Drum.wav</file>
         <file>qtquickcontrols2.conf</file>
     </qresource>
 </RCC>

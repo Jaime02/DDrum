@@ -32,7 +32,6 @@ void AudioEngine::setFile(const QUrl &url)
         return;
 
     auto resourceUrl = QUrl("qrc:/qt/qml/").resolved(url);
-    qDebug() << "AudioEngine::setFile() " << resourceUrl;
     m_file = resourceUrl;
     m_soundEffect.setSource(resourceUrl);
     emit fileChanged();

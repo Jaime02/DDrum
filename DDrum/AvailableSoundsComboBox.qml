@@ -1,7 +1,7 @@
 pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Controls
-import Components
+import Audio
 
 ComboBox {
     id: root
@@ -9,38 +9,52 @@ ComboBox {
     property string currentFile: currentText ? `Sounds/${currentText}` : ""
     required property int initialIndex
 
-    AudioFilesModel {
-        id: audioFilesModel
-    }
-
     model: audioFilesModel.getModel()
 
-    Component.onCompleted: {
-        currentIndex = root.initialIndex;
-    }
-
     background: Rectangle {
-        implicitHeight: 30
-        color: root.pressed ? Constants.secondaryColor : "black"
         border.color: root.pressed ? Constants.primaryColor : Constants.secondaryColor
         border.width: root.visualFocus ? 3 : 2
+        color: root.pressed ? Constants.secondaryColor : "black"
+        implicitHeight: 30
         radius: 2
     }
+    contentItem: Text {
+        color: "white"
+        elide: Text.ElideRight
+        leftPadding: 10
+        rightPadding: root.indicator.width + 10
+        text: root.displayText
+        verticalAlignment: Text.AlignVCenter
+    }
+    delegate: ItemDelegate {
+        id: delegate
 
+        required property int index
+
+        highlighted: root.highlightedIndex === index
+
+        background: Rectangle {
+            color: delegate.highlighted ? Constants.darkGray : "black"
+            implicitWidth: delegate.contentItem.implicitWidth
+            width: popup.width
+        }
+        contentItem: Text {
+            anchors.fill: parent
+            color: delegate.highlighted ? "#ff0000" : "white"
+            elide: Text.ElideRight
+            leftPadding: 10
+            text: root.model[delegate.index]
+            verticalAlignment: Text.AlignVCenter
+        }
+    }
     indicator: Canvas {
         id: canvas
+
+        contextType: "2d"
+        height: 8
+        width: 12
         x: root.width - canvas.width - root.rightPadding
         y: root.topPadding + (root.availableHeight - canvas.height) / 2
-        width: 12
-        height: 8
-        contextType: "2d"
-
-        Connections {
-            target: root
-            function onPressedChanged() {
-                canvas.requestPaint();
-            }
-        }
 
         onPaint: {
             let margin = 2;
@@ -54,61 +68,41 @@ ComboBox {
             context.lineTo(width - margin, margin);
             context.stroke();
         }
-    }
 
-    contentItem: Text {
-        color: "white"
-        leftPadding: 10
-        rightPadding: root.indicator.width + 10
-        text: root.displayText
-        verticalAlignment: Text.AlignVCenter
-        elide: Text.ElideRight
-    }
+        Connections {
+            function onPressedChanged() {
+                canvas.requestPaint();
+            }
 
-    delegate: ItemDelegate {
-        id: delegate
-
-        required property int index
-
-        highlighted: root.highlightedIndex === index
-
-        contentItem: Text {
-            text: root.model[delegate.index]
-            anchors.fill: parent
-            leftPadding: 10
-            color: delegate.highlighted ? "#ff0000" : "white"
-            elide: Text.ElideRight
-            verticalAlignment: Text.AlignVCenter
-        }
-
-        background: Rectangle {
-            width: popup.width
-            color: delegate.highlighted ? Constants.darkGray : "black"
-            implicitWidth: delegate.contentItem.implicitWidth
+            target: root
         }
     }
-
     popup: Popup {
         id: popup
-        y: root.height + 2
+
         implicitHeight: contentItem.implicitHeight
         implicitWidth: 200
         padding: 2
-        contentItem: ListView {
-            model: popup.visible ? root.delegateModel : null
-            clip: true
-            implicitHeight: Math.min(contentHeight, 200)
-            currentIndex: root.highlightedIndex
-            ScrollIndicator {
-                id: scrollIndicator
-            }
-            ScrollIndicator.vertical: height < contentHeight ? scrollIndicator : null
-        }
+        y: root.height + 2
 
         background: Rectangle {
-            color: "black"
             border.color: Constants.primaryColor
             border.width: 2
+            color: "black"
         }
+        contentItem: ListView {
+            clip: true
+            currentIndex: root.highlightedIndex
+            implicitHeight: Math.min(contentHeight, 200)
+            model: popup.visible ? root.delegateModel : null
+        }
+    }
+
+    Component.onCompleted: {
+        currentIndex = root.initialIndex % model.length;
+    }
+
+    AudioFilesModel {
+        id: audioFilesModel
     }
 }

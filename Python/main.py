@@ -1,37 +1,17 @@
-import os
 import sys
-from pathlib import Path
 
-from PySide6.QtGui import QGuiApplication, QWindow
+from PySide6.QtGui import QGuiApplication
 from PySide6.QtQml import QQmlApplicationEngine
 
-from autogen.settings import qml_app_url, project_root
-
-import audioengine  # noqa: F401
-import waveformitem  # noqa: F401
-import components.audio_files_model  # noqa: F401
+from autogen.settings import setup_qt_environment
+from audio import *  # noqa: F401,F403
 
 
 def main():
     app = QGuiApplication(sys.argv)
     engine = QQmlApplicationEngine()
 
-    engine.addImportPath(str(project_root.absolute()))
-    if '__compiled__' in globals():
-        try:
-            import autogen.resources  # type: ignore noqa: F401
-        except ImportError:
-            resource_file = Path(__file__).parent / 'autogen' / 'resources.py'
-            print(
-                f"Error: No compiled resources found in {resource_file.absolute()}\n"
-                f"Please compile the resources using pyside6-rcc or pyside6-project build",
-                file=sys.stderr,
-            )
-            sys.exit(1)
-        engine.load(qml_app_url)
-    else:
-        os.environ["QT_QUICK_CONTROLS_CONF"] = str(project_root / "qtquickcontrols2.conf")
-        engine.load(str(project_root / qml_app_url))
+    setup_qt_environment(engine)
 
     if not engine.rootObjects():
         sys.exit(-1)

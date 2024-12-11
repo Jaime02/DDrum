@@ -16,18 +16,6 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
     const QUrl url(mainQmlFile);
 
-#if 0
-    qDebug() << "Resources found:";
-    auto iter = QDirIterator(":/", QDirIterator::Subdirectories);
-    while(iter.hasNext()) {
-        auto next = iter.next();
-        if(next.startsWith(":/qt-project.org") || next.startsWith(":/qpdf"))
-            continue;
-        qDebug() << "Resource: " << next;
-    }
-    qDebug() << "";
-#endif
-
     QObject::connect(
                 &engine, &QQmlApplicationEngine::objectCreated, &app,
                 [url](QObject *obj, const QUrl &objUrl) {

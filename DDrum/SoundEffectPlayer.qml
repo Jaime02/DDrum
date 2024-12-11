@@ -10,25 +10,40 @@ import Audio
 Rectangle {
     id: root
 
+    property string decodingError: ""
     required property int index
     property int status: SoundEffect.Null
-    property string decodingError: ""
+
+    function play() {
+        if (root.status == SoundEffect.Ready) {
+            audioEngine.play();
+        }
+    }
 
     color: Constants.darkGray
-    radius: 10
-    implicitWidth: layout.implicitWidth + 2 * layout.anchors.margins
     implicitHeight: layout.implicitHeight + 2 * layout.anchors.margins
+    implicitWidth: layout.implicitWidth + 2 * layout.anchors.margins
+    radius: 10
+
+    onDecodingErrorChanged: {
+        if (status == SoundEffect.Error && root.decodingError) {
+            errorMessageDialog.text = root.decodingError;
+            errorMessageDialog.open();
+        }
+    }
 
     ColumnLayout {
         id: layout
-        spacing: 10
+
         anchors.fill: parent
         anchors.margins: 10
+        spacing: 10
 
         AudioEngine {
             id: audioEngine
-            volume: volumeSlider.value
+
             file: availableSoundsComboBox.currentFile
+            volume: volumeSlider.value
 
             onDecodingStatusChanged: (status, error) => {
                 root.status = status;
@@ -39,109 +54,127 @@ Rectangle {
                 }
             }
         }
-
         MessageDialog {
             id: errorMessageDialog
+
             buttons: MessageDialog.Ok
             title: "Error decoding file"
         }
-
         RowLayout {
             spacing: 10
 
             Text {
-                text: `Player ${root.index + 1}`
-                color: "white"
                 Layout.alignment: Qt.AlignVCenter
                 Layout.fillWidth: true
+                color: "white"
+                text: `Player ${root.index + 1}`
             }
-
             AvailableSoundsComboBox {
                 id: availableSoundsComboBox
+
                 Layout.alignment: Qt.AlignCenter
                 initialIndex: root.index
             }
         }
-
         WaveformItem {
             id: waveformItem
-            file: audioEngine.file
-            width: 300
-            height: 100
-        }
 
+            file: audioEngine.file
+            height: 100
+            width: 300
+        }
         Row {
             Layout.alignment: Qt.AlignCenter
             spacing: 10
 
             Rectangle {
                 id: padRectangle
+
                 color: "transparent"
-                width: 100
                 height: 100
-                radius: 10
-                border.width: 2
+                width: 100
 
                 Shape {
                     anchors.fill: padRectangle
+
                     ShapePath {
-                        strokeWidth: 2
                         strokeColor: "black"
+                        strokeWidth: 2
+
                         fillGradient: RadialGradient {
+                            centerRadius: padRectangle.height
                             centerX: padRectangle.width / 2
                             centerY: padRectangle.height / 2
                             focalX: centerX
                             focalY: centerY
-                            centerRadius: padRectangle.height
+
                             GradientStop {
+                                color: {
+                                    if (root.status == SoundEffect.Error || root.status == SoundEffect.Null) {
+                                        return "black";
+                                    }
+
+                                    if (root.status == SoundEffect.Loading) {
+                                        return "yellow";
+                                    }
+                                    return audioEngine.isPlaying ? Qt.darker(Constants.primaryColor, 1.25) : Qt.darker(Constants.secondaryColor, 1.25);
+                                }
                                 position: 0
-                                color: root.status != SoundEffect.Ready ? "black" : audioEngine.isPlaying ? Qt.darker(Constants.primaryColor, 1.25) : Qt.darker(Constants.secondaryColor, 1.25)
                             }
                             GradientStop {
+                                color: {
+                                    if (root.status == SoundEffect.Error || root.status == SoundEffect.Null) {
+                                        return Constants.darkGray;
+                                    }
+                                    if (root.status == SoundEffect.Loading) {
+                                        return "orange";
+                                    }
+                                    return audioEngine.isPlaying ? Constants.primaryColor : Constants.secondaryColor;
+                                }
                                 position: 0.5
-                                color: root.status != SoundEffect.Ready ? Constants.darkGray : audioEngine.isPlaying ? Constants.primaryColor : Constants.secondaryColor
                             }
                         }
+
                         // Rounded shape path
                         PathMove {
                             x: 10
                             y: 0
                         }
                         PathQuad {
-                            x: 0
-                            y: 10
                             controlX: 0
                             controlY: 0
+                            x: 0
+                            y: 10
                         }
                         PathLine {
                             x: 0
                             y: padRectangle.height - 10
                         }
                         PathQuad {
+                            controlX: 0
+                            controlY: padRectangle.height
                             x: 10
                             y: padRectangle.height
-                            controlX: 0
-                            controlY: padRectangle.height
                         }
                         PathLine {
                             x: padRectangle.width - 10
                             y: padRectangle.height
                         }
                         PathQuad {
-                            x: padRectangle.width
-                            y: padRectangle.height - 10
                             controlX: padRectangle.width
                             controlY: padRectangle.height
+                            x: padRectangle.width
+                            y: padRectangle.height - 10
                         }
                         PathLine {
                             x: padRectangle.width
                             y: 10
                         }
                         PathQuad {
-                            x: padRectangle.width - 10
-                            y: 0
                             controlX: padRectangle.width
                             controlY: 0
+                            x: padRectangle.width - 10
+                            y: 0
                         }
                         PathLine {
                             x: 10
@@ -149,38 +182,27 @@ Rectangle {
                         }
                     }
                 }
-
                 MouseArea {
                     id: padMouseArea
+
                     anchors.fill: parent
+
                     Connections {
-                        target: padMouseArea
                         function onClicked() {
                             root.play();
                         }
+
+                        target: padMouseArea
                     }
                 }
             }
-
             VolumeSlider {
                 id: volumeSlider
-                value: 0.75
+
                 height: padRectangle.height
+                value: 0.75
                 width: 16
             }
-        }
-    }
-
-    onDecodingErrorChanged: {
-        if (status == SoundEffect.Error && root.decodingError) {
-            errorMessageDialog.text = root.decodingError;
-            errorMessageDialog.open();
-        }
-    }
-
-    function play() {
-        if (root.status == SoundEffect.Ready) {
-            audioEngine.play();
         }
     }
 }

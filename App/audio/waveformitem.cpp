@@ -60,8 +60,6 @@ QUrl WaveformItem::file() const
 
 void WaveformItem::setFile(const QUrl &url)
 {
-    qDebug() << "CPP: WaveformItem::setFile() " << url;
-
     if (m_url == url)
         return;
 

@@ -14,8 +14,29 @@ Rectangle {
     id: root
 
     property QtObject soundEffectPlayer: Qt.createComponent("../DDrum/SoundEffectPlayer.qml", Component.PreferSynchronous)
+
     color: "black"
     focus: true
+
+    Component.onCompleted: {
+        // Initialize initial sound effect players
+        for (var i = 0; i < audioPlayersSpinBox.value; i++) {
+            root.soundEffectPlayer.createObject(soundEffectPlayersFlow, {
+                index: i
+            });
+        }
+    }
+    Keys.onPressed: event => {
+        if (event.key < Qt.Key_1 || event.key > Qt.Key_9) {
+            // Ignore key out of scope
+            return;
+        }
+
+        let digit = event.key - Qt.Key_1;
+        if (digit < soundEffectPlayersFlow.children.length) {
+            soundEffectPlayersFlow.children[digit].play();
+        }
+    }
 
     ColumnLayout {
         anchors.fill: parent
@@ -23,18 +44,19 @@ Rectangle {
 
         Row {
             id: audioPlayersCountRow
-            spacing: 5
+
             Layout.alignment: Qt.AlignHCenter
+            spacing: 5
 
             Text {
+                anchors.verticalCenter: parent.verticalCenter
                 color: "white"
                 text: "Audio players:"
-                anchors.verticalCenter: parent.verticalCenter
             }
-
             StyledSpinBox {
                 id: audioPlayersSpinBox
-                value: 2
+
+                value: 5
 
                 onValueModified: {
                     if (audioPlayersSpinBox.value < soundEffectPlayersFlow.children.length) {
@@ -46,48 +68,31 @@ Rectangle {
                     if (audioPlayersSpinBox.value > soundEffectPlayersFlow.children.length) {
                         // Create more sound effect players
                         for (var i = soundEffectPlayersFlow.children.length; i < audioPlayersSpinBox.value; i++) {
-                            root.soundEffectPlayer.createObject(soundEffectPlayersFlow, {index: i});
+                            root.soundEffectPlayer.createObject(soundEffectPlayersFlow, {
+                                index: i
+                            });
                         }
                         return;
                     }
                 }
             }
         }
-
         ScrollView {
-            Layout.fillWidth: true
             Layout.fillHeight: true
+            Layout.fillWidth: true
             contentWidth: width
-            
-            CenteredFlow {
-                id: soundEffectPlayersFlow
-                anchors.fill: parent
-                padding: 10
-                spacing: 10
-            }
 
             background: Rectangle {
                 color: "#232323"
             }
-        }
-    }
 
-    Component.onCompleted: {
-        // Initialize initial sound effect players
-        for (var i = 0; i < audioPlayersSpinBox.value; i++) {
-            root.soundEffectPlayer.createObject(soundEffectPlayersFlow, {index: i});
-        }
-    }
+            CenteredFlow {
+                id: soundEffectPlayersFlow
 
-    Keys.onPressed: event => {
-        if (event.key < Qt.Key_1 || event.key > Qt.Key_9) {
-            // Ignore key out of scope
-            return;
-        }
-
-        let digit = event.key - Qt.Key_1;
-        if (digit < soundEffectPlayersFlow.children.length) {
-            soundEffectPlayersFlow.children[digit].play()
+                anchors.fill: parent
+                padding: 10
+                spacing: 10
+            }
         }
     }
 }

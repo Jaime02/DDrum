@@ -9,12 +9,12 @@ qt6_add_resources(${CMAKE_PROJECT_NAME} MainResource
     PREFIX "/qt/qml"
     VERSION 1.0
     FILES 
-        "Sounds/Blow.wav"
+        "Sounds/Bass.wav"
         "Sounds/Synth.wav"
         "Sounds/Roll.wav"
-        "Sounds/WhistleMonoS32.wav"
-        "Sounds/WhistleStereoS32.wav"
+        "Sounds/Cowbell.wav"
         "Sounds/Whistle.wav"
+        "Sounds/Drum.wav"
 )
 
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
