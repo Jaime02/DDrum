@@ -26,11 +26,11 @@ def setup_qt_environment(qml_engine: QQmlApplicationEngine):
                 file=sys.stderr,
             )
             sys.exit(1)
-        qml_app_url = ":/qt/qml/DDrumContent/App.qml"
+        qml_app_url = ":/qt/qml/DrumpadContent/App.qml"
         qml_engine.load(qml_app_url)
         return
 
     os.environ["QT_QUICK_CONTROLS_CONF"] = str(project_root / "qtquickcontrols2.conf")
 
-    qml_app_url = "DDrumContent/App.qml"
+    qml_app_url = "DrumpadContent/App.qml"
     qml_engine.load(str(project_root / qml_app_url))

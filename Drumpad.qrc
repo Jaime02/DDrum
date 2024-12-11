@@ -1,0 +1,20 @@
+<RCC>
+    <qresource prefix="/qt/qml">
+        <file>Drumpad/AvailableSoundsComboBox.qml</file>
+        <file>Drumpad/CenteredFlow.qml</file>
+        <file>Drumpad/Constants.qml</file>
+        <file>Drumpad/qmldir</file>
+        <file>Drumpad/SoundEffectPlayer.qml</file>
+        <file>Drumpad/StyledSpinBox.qml</file>
+        <file>Drumpad/VolumeSlider.qml</file>
+        <file>DrumpadContent/App.qml</file>
+        <file>DrumpadContent/MainScreen.qml</file>
+        <file>Sounds/Bass.wav</file>
+        <file>Sounds/Roll.wav</file>
+        <file>Sounds/Synth.wav</file>
+        <file>Sounds/Cowbell.wav</file>
+        <file>Sounds/Whistle.wav</file>
+        <file>Sounds/Drum.wav</file>
+        <file>qtquickcontrols2.conf</file>
+    </qresource>
+</RCC>

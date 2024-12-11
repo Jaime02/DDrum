@@ -6,10 +6,10 @@
 #include <QGuiApplication>
 #include "qqmlextensionplugin.h"
 
-Q_IMPORT_QML_PLUGIN(DDrumPlugin)
-Q_IMPORT_QML_PLUGIN(DDrumContentPlugin)
+Q_IMPORT_QML_PLUGIN(DrumpadPlugin)
+Q_IMPORT_QML_PLUGIN(DrumpadContentPlugin)
 
-const char mainQmlFile[] = "qrc:/qt/qml/DDrumContent/App.qml";
+const char mainQmlFile[] = "qrc:/qt/qml/DrumpadContent/App.qml";
 
 #ifdef BUILD_QDS_COMPONENTS
 
